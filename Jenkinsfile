@@ -3,7 +3,7 @@ pipeline{
   stages{
     stage("creating apache container c1 run on the port 80"){
       steps{
-        sh "docker run -dp --name c1 httpd"
+        sh "docker run -dp 80:80 --name c1 httpd"
       }
     }
     stage("giving access to the index file in the jenkins job location"){
