@@ -6,7 +6,7 @@ pipeline{
         sh "docker run -dp --name c1 httpd"
       }
     }
-    stage("giving access to the index file in the jenkins job location){
+    stage("giving access to the index file in the jenkins job location"){
           steps{
            dir('/root/.jenkins/workspace/job/') {
              sh "chmod -R 777 index.html"
