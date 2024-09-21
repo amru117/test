@@ -16,7 +16,7 @@ pipeline{
       }
       stage("copy the index file to htdocs location in the docker"){
         steps{
-          sh "docker cp /root/.jenkins/workspace/job_mater/index.html c1:/usr/local/apache2/htdocs"
+          sh "docker cp /root/.jenkins/workspace/job_master/index.html c1:/usr/local/apache2/htdocs"
         }
       }
   }
