@@ -12,17 +12,18 @@ pipeline{
         sh "cp -r /root/.jenkins/workspace/job_master/index.html /var/lib/docker/volumes/index/_data"
       }
     }
+     stage("giving access to the index file"){
+      steps{
+        dir('/root/.jenkins/workspace/job_master'){
+          sh "chmod -R 777 index.html"
+        }
+      }
+    }
     stage("creating the container with apache on which the volume will mount"){
       steps{
         sh "docker run -dp 80:80 -v index:/usr/local/apache2/htdocs --name c1 httpd"
       }
     }
-    stage("giving access to the index file"){
-      steps{
-        dir('/root/.jenkins/workspace/job_master/'){
-          sh "chmod -R 777 index.html"
-        }
-      }
-    }
+   
   }
 }
