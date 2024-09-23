@@ -1,21 +1,21 @@
 pipeline{
   agent any
   stages{
-    stage("creating the docker container c2 for index1 file in master1 branch"){
+    stage("copying the index1 file to the path at volume is mounted"){
       steps{
-        sh "docker run -dp 90:80 --name c2 httpd"
+        sh "cp -r /root/.jenkins/workspace/job_master1/index1.html /var/lib/docker/volumes/index/_data"
       }
     }
-    stage("give access to the index1 file in the jenkins workspace folder"){
+    stage("giving access to the index1 file present in the path at which volume is mounted"){
       steps{
-        dir('/root/.jenkins/workspace/job_master1'){
+        dir('/var/lib/docker/volumes/index/_data'){
           sh "chmod -R 777 index1.html"
         }
       }
     }
-    stage("copying the index1 file to htdocs location in the container"){
+    stage("creating the container with apache and mount the volume index/var/lib/docker/volumes/index/_data on it and deploy index1 file present in that"){
       steps{
-        sh "docker cp /root/.jenkins/workspace/job_master1/index1.html c2:/usr/local/apache2/htdocs"
+        sh "docker run -dp 90:80 -v index:/usr/local/apache2/htdocs --name c2 httpd"
       }
     }
   }
