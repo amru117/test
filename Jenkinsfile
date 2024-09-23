@@ -14,7 +14,7 @@ pipeline{
     }
      stage("giving access to the index file"){
       steps{
-        dir('/root/.jenkins/workspace/job_master'){
+        dir('/var/lib/docker/volumes/index/_data'){
           sh "chmod -R 777 index.html"
         }
       }
