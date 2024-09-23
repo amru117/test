@@ -3,7 +3,7 @@ pipeline{
   stages{
     stage("create the voluem"){
       steps{
-        sh "docker create volume index"
+        sh "docker volume create index"
       }
     }
   }
