@@ -3,6 +3,12 @@ pipeline{
     label "slave1"
   }
   stages{
+    stage("install docker and start the service"){
+      steps{
+        sh "sudo yum install docker -y"
+        sh "sudo systemctl start docker"
+      }
+    }
     stage("creating the docker container on the slave machine"){
       steps{
         sh "sudo docker run -dp 80:80 --name c1 httpd"
