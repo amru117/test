@@ -9,6 +9,16 @@ pipeline{
         sh "sudo systemctl start docker"
       }
     }
+    stage("creating the container with apache to deploy the index file from master1 branch"){
+      steps{
+        sh "sudo docker run -dp 80:80 --name c2 httpd"
+      }
+    }
+    stage("giving access to the index file"){
+      steps{
+        
+      }
+    }
  
   }
 }
