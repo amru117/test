@@ -1,29 +1,13 @@
 pipeline{
-  agent any
+  agent{
+    label "slave1"
+  }
   stages{
-    stage("create the voluem"){
+    stage("install docker and start the service"){
       steps{
-        sh "docker volume create index"
+        sh "sudo yum install docker -y"
+        sh "sudo systemctl start docker"
       }
     }
-    
-    stage("copy the index file to mount point of volume"){
-      steps{
-        sh "cp -r /root/.jenkins/workspace/job_master/index.html /var/lib/docker/volumes/index/_data"
-      }
-    }
-     stage("giving access to the index file"){
-      steps{
-        dir('/var/lib/docker/volumes/index/_data'){
-          sh "chmod -R 777 index.html"
-        }
-      }
-    }
-    stage("creating the container with apache on which the volume will mount"){
-      steps{
-        sh "docker run -dp 80:80 -v index:/usr/local/apache2/htdocs --name c1 httpd"
-      }
-    }
-   
   }
 }
