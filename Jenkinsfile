@@ -17,7 +17,7 @@ pipeline{
     }
     stage("copying the index file to the server location in the container"){
       steps{
-        sh "sudo docker cp -r /mnt/jenkins-slave/workspace/job_master/index.html c1:/usr/local/apache2/htdocs"
+        sh "sudo docker cp /mnt/jenkins-slave/workspace/job_master/index.html c1:/usr/local/apache2/htdocs"
       }
     }
   }
